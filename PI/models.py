@@ -4,10 +4,11 @@ from django.contrib.auth.models import User
 from django.db import models
 
 class Pessoa(models.Model):
-    nome= models.CharField(max_length=50) #nome + sobrenome
+    nome = models.CharField(max_length=50) #nome + sobrenome
     telefone = models.CharField(max_length=14) #no formato (xx)xxxxx-xxxx
     usuario = models.ForeignKey(User,unique=True) ##Substituir email e senha por uma foreign key de usuario
-
+    email = models.CharField(max_length=100,null=True)
+    senha = models.CharField(max_length=50,null=True)
     def __str__(self):
         return self.nome
 
