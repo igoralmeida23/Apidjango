@@ -23,7 +23,7 @@ class GetPessoas(APIView):
         pass
 
 
-class Cadastro(APIView):
+class CadastroPessoa(APIView):
 
     def get(self,request):
         serializer = PessoaSerializer(Pessoa.objects.all(),many=True)
@@ -31,9 +31,6 @@ class Cadastro(APIView):
 
 
     def post(self,request,format=None):
-        usuario = User(username=request.data['email'])
-        usuario.set_password(request.data['senha'])
-        usuario.save()
-
-        pessoa = Pessoa(nome=request.data['nome'],telefone=request.data['telefone'],usuario=usuario,email=request.data['email'])
-        pessoa.save()
+        serializer = PessoaSerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
